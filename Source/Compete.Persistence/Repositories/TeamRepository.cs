@@ -39,6 +39,11 @@ namespace Compete.Persistence.Repositories
       _repository.Add(team);
     }
 
+    public void Update(Team team)
+    {
+      _repository.Update(team);
+    }
+
     public int Count()
     {
       return _repository.Count();

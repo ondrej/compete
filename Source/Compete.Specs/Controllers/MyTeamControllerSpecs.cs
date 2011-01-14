@@ -75,7 +75,7 @@ namespace Compete.Specs.Controllers
       SetupConfigurationToShowAStartingRoundOf(round);
       SetupControllerDependencies();
 
-      controller = new MyTeamController(configurationRepository, teamManagementQueries);
+      controller = new MyTeamController(configurationRepository, teamManagementQueries, null);
     };
 
     Because of = () =>

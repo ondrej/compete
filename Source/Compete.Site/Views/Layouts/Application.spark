@@ -36,6 +36,9 @@
             <a href="~/CreateTeam"><span>Create Team</span></a>
           </li>
           <li>
+            <a href="~/CreateNetworkTeam"><span>Create Network Team</span></a>
+          </li>
+          <li>
             <a href="~/Login"><span>Login</span></a>
           </li>
           <li>

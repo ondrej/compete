@@ -8,6 +8,7 @@ namespace Compete.Model.Repositories
     Team FindById(Guid id);
     Team FindByTeamName(string teamName);
     void Add(Team team);
+    void Update(Team team);
     int Count();
     IEnumerable<Team> GetAllTeams();
     IDictionary<string, string> GetTeamNamesMap();

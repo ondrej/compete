@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Compete.Model.Game;
 using Compete.Site.Models;
 using Compete.Site.Refereeing;
 using Compete.TeamManagement;
@@ -22,19 +23,19 @@ namespace Compete.Site.Infrastructure
 
     public void Queue(string teamName)
     {
-      var teamNames = _teamManagementQueries.GetAllTeamNames();
-      Queue(teamNames.ToArray());
+      var allTeams = _teamManagementQueries.GetTeamInfos();
+      Queue(allTeams.Where(t => t.Url == null), allTeams.Where(t => t.Url != null));
     }
 
     public void QueueForAll()
     {
-      var teamNames = _teamManagementQueries.GetAllTeamNames();
-      Queue(teamNames.ToArray());
+      var allTeams = _teamManagementQueries.GetTeamInfos();
+      Queue(allTeams.Where(t => t.Url == null) , allTeams.Where(t => t.Url != null));
     }
 
-    private void Queue(string[] teamNames)
+    private void Queue(IEnumerable<TeamInfo> localTeams, IEnumerable<TeamInfo> networkTeams)
     {
-      var parameters = new RoundParameters(_assemblyFileRepository.FindAllGamesAndPlayers().ToArray(), teamNames);
+      var parameters = new RoundParameters(_assemblyFileRepository.FindAllGamesAndPlayers().ToArray(), localTeams, networkTeams);
       _refereeThread.Start(parameters);
     }
   }

@@ -66,6 +66,7 @@
     <Compile Include="Repositories\ITeamRepository.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="TeamMember.cs" />
+    <Compile Include="Game\TeamInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Compete.Bot\Compete.Bot.csproj">

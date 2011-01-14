@@ -23,7 +23,7 @@ namespace Compete.Site.Refereeing
 
     public StagingArea(IEnumerable<AssemblyFile> files)
     {
-      _root = Path.Combine(@"C:\Compete\Staging", Guid.NewGuid().ToString("D"));
+      _root = Path.Combine(@"E:\Compete\Staging", Guid.NewGuid().ToString("D"));
       DirectoryHelpers.CreateIfNecessary(_root);
       AppDomainHelper.CopyDependencies(_root);
       foreach (AssemblyFile file in files)

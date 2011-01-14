@@ -8,7 +8,7 @@ namespace Compete.Site.Models
 {
   public class AssemblyFileRepository
   {
-    public const string Directory = @"C:\Compete";
+    public const string Directory = @"E:\Compete";
 
     public void Add(HttpPostedFileBase file, string fileName)
     {

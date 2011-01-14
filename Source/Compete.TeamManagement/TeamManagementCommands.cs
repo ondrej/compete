@@ -11,7 +11,9 @@ namespace Compete.TeamManagement
   public interface ITeamManagementCommands
   {
     bool New(string teamName, string longName, IEnumerable<string> teamMembers, string password);
+    bool New(string teamName, string longName, IEnumerable<string> teamMembers, string password, string url);
     bool Authenticate(string teamName, string password);
+    bool UpdateUrl(string teamName, string url);
   }
 
   public class TeamManagementCommands : ITeamManagementCommands
@@ -68,6 +70,22 @@ namespace Compete.TeamManagement
       return true;
     }
 
+    public bool New(string teamName, string longName, IEnumerable<string> teamMembers, string password, string url)
+    {
+      var members = teamMembers.Select(x => new TeamMember(x));
+      NetworkTeam team;
+      try
+      {
+        team = new NetworkTeam(teamName, longName, members, GetMd5HashOf(password), url);
+      }
+      catch (ArgumentException e)
+      {
+        return false;
+      }
+      _repository.Add(team);
+      return true;
+    }
+
     public bool Authenticate(string teamName, string password)
     {
       var team = _repository.FindByTeamName(teamName);
@@ -80,6 +98,27 @@ namespace Compete.TeamManagement
       var result = team.Authenticate(GetMd5HashOf(password));
 
       return result;
+    }
+
+    public bool UpdateUrl(string teamName, string url)
+    {
+      var team = _repository.FindByTeamName(teamName) as NetworkTeam;
+      if (team == null)
+      {
+        return false;
+      }
+
+      try
+      {
+        team.Url = url;
+      }
+      catch (ArgumentException e)
+      {
+        return false;
+      }
+
+      _repository.Update(team);
+      return true;
     }
   }
 }

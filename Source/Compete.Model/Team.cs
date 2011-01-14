@@ -61,4 +61,29 @@ namespace Compete.Model
       return passwordHash == _password;
     }
   }
+
+  public class NetworkTeam : Team
+  {
+    string _url;
+
+    public NetworkTeam(string teamName, string longName, IEnumerable<TeamMember> teamMembers, string passwordHash, string url)
+        : base(teamName, longName, teamMembers, passwordHash)
+    {
+        this.Url = url;
+    }
+
+    public string Url
+    {
+        get { return this._url; }
+        set
+        {
+            if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
+            {
+                throw new ArgumentException("Not a valid URL.");
+            }
+
+            this._url = value;
+        }
+    }
+  }
 }

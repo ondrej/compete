@@ -103,6 +103,7 @@
     <Compile Include="Controllers\CompeteController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
+    <Compile Include="Controllers\CreateNetworkTeamController.cs" />
     <Compile Include="Controllers\CreateTeamController.cs" />
     <Compile Include="Controllers\GameLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -237,6 +238,7 @@
     <None Include="Views\AdministratorLogin\Index.spark" />
     <None Include="Views\Administrator\Index.spark" />
     <None Include="Views\Competition\Index.spark" />
+    <None Include="Views\CreateNetworkTeam\Index.spark" />
     <None Include="Views\CreateTeam\Index.spark" />
     <None Include="Views\GameLog\Index.spark" />
     <None Include="Views\GameLog\Nope.spark" />

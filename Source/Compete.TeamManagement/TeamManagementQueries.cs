@@ -12,12 +12,14 @@ namespace Compete.TeamManagement
   public interface ITeamManagementQueries
   {
     IEnumerable<TeamSummary> GetTeamSummaries();
+    IEnumerable<TeamInfo> GetTeamInfos();
     bool TeamNameIsAvailable(string name);
     IEnumerable<TeamStandingSummary> GetTeamStandings();
     IEnumerable<string> GetAllTeamNames();
     string GetMyTeamName();
     IEnumerable<RecentMatch> GetMyRecentMatches();
     string GetMyTeamDisplayName();
+    string GetMyTeamUrl();
     bool IsSignedIn { get; }
   }
 
@@ -36,7 +38,12 @@ namespace Compete.TeamManagement
 
     public IEnumerable<TeamSummary> GetTeamSummaries()
     {
-      return _teamRepository.GetAllTeams().Select(team => new TeamSummary(team.Name, team.DisplayName, team.TeamMembers.Select(teamMember => teamMember.Name)));
+      return _teamRepository.GetAllTeams().Select(team => new TeamSummary(team.Name, team.DisplayName, team is NetworkTeam ? ((NetworkTeam)team).Url : null, team.TeamMembers.Select(teamMember => teamMember.Name)));
+    }
+
+    public IEnumerable<TeamInfo> GetTeamInfos()
+    {
+      return _teamRepository.GetAllTeams().Select(team => new TeamInfo(team.Name, team is NetworkTeam ? ((NetworkTeam)team).Url : null));
     }
 
     public bool TeamNameIsAvailable(string name)
@@ -79,6 +86,13 @@ namespace Compete.TeamManagement
     {
       var teamName = _formsAuthentication.SignedInUserName;
       return _teamRepository.FindByTeamName(teamName).DisplayName;
+    }
+
+    public string GetMyTeamUrl()
+    {
+      var teamName = _formsAuthentication.SignedInUserName;
+      NetworkTeam team = _teamRepository.FindByTeamName(teamName) as NetworkTeam;
+      return team == null ? null : team.Url;
     }
 
     public bool IsSignedIn

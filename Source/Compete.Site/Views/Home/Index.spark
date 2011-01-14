@@ -6,11 +6,13 @@
   <tr style="background-color:#ccc;">
     <td>Name</td>
     <td>Long Name</td>
-    <td># of members</td>
+    <td># of Members</td>
+    <td>Local or Network</td>
   </tr>
   <tr each='var team in TeamSummaries'>
     <td>${team.Name}</td>
     <td>${team.DisplayName}</td>
     <td>${team.TeamMembers.Count()}</td>
+    <td>${team.Url == null ? "Local" : "Network"}</td>
   </tr>
 </table>

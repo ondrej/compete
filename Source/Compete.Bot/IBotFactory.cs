@@ -8,4 +8,9 @@ namespace Compete.Bot
   {
     IBot CreateBot();
   }
+
+  public interface INetworkBotFactory
+  {
+    IBot CreateBot(string url);
+  }
 }

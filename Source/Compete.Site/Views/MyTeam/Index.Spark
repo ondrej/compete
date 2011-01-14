@@ -1,8 +1,33 @@
 ﻿<viewdata results="IEnumerable<Compete.Model.Game.RecentMatch>" currentRound="System.Int32" />
+<viewdata ErrorMessage="string" />
+<viewdata InfoMessage="string" />
 <viewdata currentTeamDisplayName="string" />
 <viewdata currentTeam="string" />
+<viewdata currentTeamUrl="string" />
 
 <h2>${currentTeamDisplayName}</h2>
+
+<test if="!String.IsNullOrEmpty(ErrorMessage)" >
+  <p style="color:Red; font-weight:bold;"> ${ErrorMessage} </p>
+</test>
+<test if="!String.IsNullOrEmpty(InfoMessage)" >
+  <p style="color:LightGreen; font-weight:bold;"> ${InfoMessage} </p>
+</test>
+
+<div if="currentTeamUrl != null">
+  <form action="~/MyTeam" method="post">
+    <fieldset>
+      <ol>
+        <li>
+          <label for="url">URL:</label>
+          <input type="text" name="url" size="50" value="${currentTeamUrl}" />
+          <input id="submitButton" type="submit" value="Update" />
+        </li>
+      </ol>
+    </fieldset>
+
+  </form>
+</div>
 
 <h4>Instructions</h4>
 First, download the zip file for the current round:<br />
@@ -15,8 +40,8 @@ Then, upload your assembly:
   <input id="submitButton" type="submit" value="Upload"/>
 </form>
 
-<h3 if="results">Most recent matches</h3>
-<table if="results">
+<h3 if="results.Count()>0">Most recent matches</h3>
+<table if="results.Count()>0">
 	<tr>
 		<th>Opponent</th>
 		<th>Result</th>

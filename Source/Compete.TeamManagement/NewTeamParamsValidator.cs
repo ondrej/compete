@@ -11,6 +11,7 @@ namespace Compete.TeamManagement
     bool PasswordsMatch(string password, string passwordAgain);
     bool TeamNameIsValid(string name);
     bool TeamNameIsAvailable(string name);
+    bool UrlIsValid(string url);
   }
 
   public class NewTeamParamsValidator : INewTeamParamsValidator
@@ -45,6 +46,11 @@ namespace Compete.TeamManagement
     public bool TeamNameIsAvailable(string name)
     {
       return _teamManagementQueries.TeamNameIsAvailable(name);
+    }
+
+    public bool UrlIsValid(string url)
+    {
+      return Uri.IsWellFormedUriString(url, UriKind.Absolute);
     }
   }
 }
